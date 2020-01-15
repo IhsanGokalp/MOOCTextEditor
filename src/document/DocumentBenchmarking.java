@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+import static java.lang.System.nanoTime;
+
 /** A class for timing the EfficientDocument and BasicDocument classes
  * 
  * @author UC San Diego Intermediate Programming MOOC team
@@ -42,7 +44,31 @@ public class DocumentBenchmarking {
 		{
 			// numToCheck holds the number of characters that you should read from the 
 			// file to create both a BasicDocument and an EfficientDocument.  
-			
+			System.out.print(numToCheck+"\t");
+
+			String textToRead = getStringFromFile(textfile, numToCheck);
+			double bsTimeAvg = 0;
+			for (int i = 0; i < trials; i++){
+
+				long bsTimeStart = nanoTime();
+				BasicDocument bsDc =  new BasicDocument(textToRead);
+				double basicFlesh = bsDc.getFleschScore();
+				long bsTimeStop = nanoTime();
+				bsTimeAvg += (bsTimeStop-bsTimeStart)/1000000000.0;
+			}
+			System.out.print((bsTimeAvg/trials) + "\t");
+			double efTimeAvg = 0;
+
+			for (int i = 0; i < trials; i++){
+
+				long efTimeStart = nanoTime();
+				EfficientDocument efDc = new EfficientDocument(textToRead);
+				double efficientFlesh = efDc.getFleschScore();
+				long efTimeStop = nanoTime();
+				efTimeAvg +=( efTimeStop-efTimeStart)/1000000000.0;
+			}
+
+			System.out.print((efTimeAvg/trials) + "\n");
 			/* Each time through this loop you should:
 			 * 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
 			 * 2. Read numToCheck characters from the file into a String

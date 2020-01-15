@@ -1,5 +1,7 @@
 package textgen;
 
+import document.BasicDocument;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -32,6 +34,8 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public void train(String sourceText)
 	{
+		BasicDocument bd = new BasicDocument(sourceText);
+
 		// TODO: Implement this method
 	}
 	

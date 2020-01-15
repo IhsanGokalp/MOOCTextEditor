@@ -50,10 +50,27 @@ public class EfficientDocument extends Document {
 		// That is not a word or a sentence-ending puctuation.
 		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
 		// OF THIS METHOD.
+		int words = 0;
+		int sentences = 0;
+		int syllables = 0;
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
-		
+		for (String word : tokens){
+			if (isWord(word)){
+				words++;
+				int currSyllables = countSyllables(word);
+				syllables += currSyllables;
+				if (word == tokens.get(tokens.size() - 1)) {
+					sentences++;
+				}
+			}
+			else
+				sentences++;
+		}
 		// TODO: Finish this method.  Remember the countSyllables method from 
 		// Document.  That will come in handy here.  isWord defined above will also help.
+		this.numSentences = sentences;
+		this.numSyllables = syllables;
+		this.numWords = words;
 	}
 
 	
@@ -73,7 +90,8 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSentences() {
 		//TODO: write this method.  Hint: It's simple
-		return 0;
+
+		return numSentences;
 	}
 
 	
@@ -94,7 +112,8 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumWords() {
 		//TODO: write this method.  Hint: It's simple
-	    return 0;
+
+		return numWords;
 	}
 
 
@@ -116,7 +135,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSyllables() {
         //TODO: write this method.  Hint: It's simple
-        return 0;
+		return numSyllables;
 	}
 	
 	// Can be used for testing
@@ -139,7 +158,6 @@ public class EfficientDocument extends Document {
 		testCase(new EfficientDocument("Sentences?!"), 3, 1, 1);
 		testCase(new EfficientDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
 		         32, 15, 1);
-		
 	}
 	
 
