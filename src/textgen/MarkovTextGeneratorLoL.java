@@ -1,7 +1,5 @@
 package textgen;
 
-import document.BasicDocument;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -34,8 +32,57 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public void train(String sourceText)
 	{
-		BasicDocument bd = new BasicDocument(sourceText);
+		String[] words = sourceText.split("[ ]+");
 
+		starter = words[0];
+		String prevWord = starter;
+		if (sourceText != "") {
+			wordList.add(new ListNode(prevWord));
+		}
+		int count = 0;
+		for (String w : words) {
+			if (count == 0) {
+				count++;
+				continue;
+			}
+			boolean inList = false;
+			ListNode ln = null;
+			int k = 1;
+			for (ListNode node : wordList) {
+				if (node.getWord().equals(prevWord)){
+					inList = true;
+				 	ln = node;
+				 	break;
+				}
+				k++;
+			}
+
+			if (inList) {
+				ln.addNextWord(w);
+			}
+
+			else {
+				ln = new ListNode(prevWord);
+				ln.addNextWord(w);
+				wordList.add(ln);
+			}
+			prevWord = w;
+		}
+		boolean lastWordCheck = false;
+		ListNode sameNode = null;
+		for (ListNode n : wordList) {
+			if (prevWord.equals(n.getWord())){
+				lastWordCheck = true;
+				sameNode = n;
+			}
+		}
+		if (!lastWordCheck){
+			sameNode = new ListNode(prevWord);
+			sameNode.addNextWord(starter);
+			wordList.add(sameNode);
+		} else {
+			sameNode.addNextWord(starter);
+		}
 		// TODO: Implement this method
 	}
 	
@@ -45,7 +92,36 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public String generateText(int numWords) {
 	    // TODO: Implement this method
-		return null;
+		String currWord = starter;
+		String output = "";
+		int count = 0;
+		while (numWords > count) {
+			ListNode nodeOfCurrWord = null;
+			if (numWords == 0) {
+				break;
+			}
+			else if (count == 0) {
+				output = output + currWord;
+				count++;
+				continue;
+			}
+			for (ListNode n : wordList) {
+				if (currWord.equals(n.getWord())) {
+					nodeOfCurrWord = n;
+				}
+			}
+
+			String w = nodeOfCurrWord == null? "" : nodeOfCurrWord.getRandomNextWord(rnGenerator);
+			if (!w.equals("")) {
+				output += " " + w + " ";
+			}
+			else {
+				output += w;
+			}
+			currWord = w;
+			count++;
+		}
+		return output;
 	}
 	
 	
@@ -65,6 +141,9 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public void retrain(String sourceText)
 	{
+		starter = "";
+		wordList = new LinkedList<ListNode>();
+		train(sourceText);
 		// TODO: Implement this method.
 	}
 	
@@ -79,7 +158,13 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	public static void main(String[] args)
 	{
 		// feed the generator a fixed random value for repeatable behavior
+
 		MarkovTextGeneratorLoL gen = new MarkovTextGeneratorLoL(new Random(42));
+
+		System.out.println(gen.generateText(10));
+		gen.train("hi there hi Leo");
+		System.out.println(gen.generateText(0));
+		System.out.println(gen);
 		String textString = "Hello.  Hello there.  This is a test.  Hello there.  Hello Bob.  Test again.";
 		System.out.println(textString);
 		gen.train(textString);
@@ -148,7 +233,10 @@ class ListNode
 		// TODO: Implement this method
 	    // The random number generator should be passed from 
 	    // the MarkovTextGeneratorLoL class
-	    return null;
+
+		int randomNum = generator.nextInt(nextWords.size());
+
+	    return nextWords.get(randomNum);
 	}
 
 	public String toString()

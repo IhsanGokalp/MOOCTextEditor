@@ -1,10 +1,7 @@
 package spelling;
 
-import java.util.List;
-import java.util.Set;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
+import javax.swing.tree.TreeNode;
+import java.util.*;
 
 /** 
  * An trie data structure that implements the Dictionary and the AutoComplete ADT
@@ -39,8 +36,35 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 */
 	public boolean addWord(String word)
 	{
+		word = word.toLowerCase();
 	    //TODO: Implement this method.
-	    return false;
+		TrieNode curr = root;
+		boolean inserted = false;
+		for (int i = 0; i<word.length(); i++) {
+			char currChar = word.charAt(i);
+
+			if (curr.getChild(currChar) == null) {
+				TrieNode nextOne = curr.insert(currChar);
+				if (i + 1 < word.length()) {
+					curr = curr.getChild(currChar);
+					if (i+1 == word.length()) {
+						inserted = true;
+						curr.setEndsWord(true);
+					}
+				}
+				curr = nextOne;
+			}
+			else {
+				if (word.length() - 1 == i) {
+					curr.setEndsWord(true);
+					inserted = true;
+				}
+				else {
+					curr = curr.getChild(currChar);
+				}
+			}
+		}
+	    return inserted;
 	}
 	
 	/** 
@@ -50,7 +74,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public int size()
 	{
 	    //TODO: Implement this method
-	    return 0;
+	    return size;
 	}
 	
 	
@@ -59,6 +83,25 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	@Override
 	public boolean isWord(String s) 
 	{
+		s = s.toLowerCase();
+		TrieNode curr = root;
+		for (int i = 0; i < s.length(); i++) {
+			char currChar = s.charAt(i);
+			if (curr.getChild(currChar) == null) {
+
+				return false;
+			}
+			else {
+				if (s.equals(curr.getText()))
+					return true;
+				else{
+					curr = curr.getChild(currChar);
+					if (s.equals(curr.getText()))
+						return true;
+					continue;
+				}
+			}
+		}
 	    // TODO: Implement this method
 		return false;
 	}
@@ -90,6 +133,42 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 // This method should implement the following algorithm:
     	 // 1. Find the stem in the trie.  If the stem does not appear in the trie, return an
     	 //    empty list
+		 TrieNode curr = root;
+		 for (int i = 0; i < prefix.length(); i++) {
+		  	if (curr != null)
+		 		curr = curr.getChild(prefix.charAt(i));
+		 	else
+				return new LinkedList<String>();
+		 	if (curr != null)
+			 	System.out.println(curr.getText());
+		 	else
+				System.out.println("Came to null");
+		 }
+
+		 Queue<TrieNode> q = new LinkedList<TrieNode>();
+		 List<String> result = new ArrayList<String>();
+		 q.add(curr);
+		 while (!q.isEmpty()) {
+		 	TrieNode nodeInLL = q.remove();
+		 	if (nodeInLL.endsWord()) {
+				result.add(nodeInLL.getText());
+			}
+
+		 	for (Character currNodeChar : nodeInLL.getValidNextCharacters()) {
+		 		if (numCompletions > 0) {
+		 			TrieNode theNode = curr.getChild(currNodeChar);
+		 			if (theNode != null) {
+		 				q.add(theNode);
+		 				System.out.println(theNode.getText() + " added");
+		 			}
+		 			else if (nodeInLL.getValidNextCharacters().contains("")) {
+		 				q.add(new TrieNode());
+		 			}
+		 		}
+		 		numCompletions--;
+		 	}
+		 }
+
     	 // 2. Once the stem is found, perform a breadth first search to generate completions
     	 //    using the following algorithm:
     	 //    Create a queue (LinkedList) and add the node that completes the stem to the back
@@ -101,7 +180,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
     	 
-         return null;
+         return result;
      }
 
  	// For debugging
