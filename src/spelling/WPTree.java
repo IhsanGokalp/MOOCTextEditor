@@ -4,9 +4,7 @@
 package spelling;
 
 //import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * WPTree implements WordPath by dynamically creating a tree of words during a Breadth First
@@ -42,7 +40,27 @@ public class WPTree implements WordPath {
 	public List<String> findPath(String word1, String word2) 
 	{
 	    // TODO: Implement this method.
-	    return new LinkedList<String>();
+        List<WPTreeNode> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+        root = new WPTreeNode(word1, null);
+        visited.add(word1);
+        queue.add(root);
+
+        while (!queue.isEmpty() && !visited.contains(word2)) {
+            WPTreeNode curr = queue.remove(0);
+            List<String> neighbors = nw.distanceOne(curr.getWord(),true);
+            for (String word: neighbors) {
+                if (!visited.contains(word)) {
+                    curr.addChild(word);
+                    visited.add(word);
+                    queue.add(new WPTreeNode(word,curr));
+                    if (word.equals(word2)) {
+                        return queue.get(queue.size()-1).buildPathToRoot();
+                    }
+                }
+            }
+        }
+	    return null;
 	}
 	
 	// Method to print a list of WPTreeNodes (useful for debugging)

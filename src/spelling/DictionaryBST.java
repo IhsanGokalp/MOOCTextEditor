@@ -25,6 +25,7 @@ public class DictionaryBST implements Dictionary
     public boolean addWord(String word) {
     	// TODO: Implement this method
         word = word.toLowerCase();
+        int comp;
         for (String w : dict) {
             if (w.equals(word))
                 return true;

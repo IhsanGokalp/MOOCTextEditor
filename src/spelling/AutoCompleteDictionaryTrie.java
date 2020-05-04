@@ -1,7 +1,9 @@
 package spelling;
 
 import javax.swing.tree.TreeNode;
+import java.lang.reflect.Array;
 import java.util.*;
+
 
 /** 
  * An trie data structure that implements the Dictionary and the AutoComplete ADT
@@ -42,27 +44,25 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 		boolean inserted = false;
 		for (int i = 0; i<word.length(); i++) {
 			char currChar = word.charAt(i);
-
 			if (curr.getChild(currChar) == null) {
 				TrieNode nextOne = curr.insert(currChar);
-				if (i + 1 < word.length()) {
-					curr = curr.getChild(currChar);
-					if (i+1 == word.length()) {
-						inserted = true;
-						curr.setEndsWord(true);
-					}
+				if (i+1 == word.length()) {
+					inserted = true;
+					nextOne.setEndsWord(true);
 				}
 				curr = nextOne;
 			}
 			else {
-				if (word.length() - 1 == i) {
+				curr = curr.getChild(currChar);
+				if (word.length() - 1 == i && word.equals(curr.getText())
+						&& curr.endsWord() == false) {
 					curr.setEndsWord(true);
 					inserted = true;
 				}
-				else {
-					curr = curr.getChild(currChar);
-				}
 			}
+		}
+		if (inserted == true) {
+			size++;
 		}
 	    return inserted;
 	}
@@ -135,38 +135,34 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //    empty list
 		 TrieNode curr = root;
 		 for (int i = 0; i < prefix.length(); i++) {
-		  	if (curr != null)
-		 		curr = curr.getChild(prefix.charAt(i));
-		 	else
-				return new LinkedList<String>();
-		 	if (curr != null)
-			 	System.out.println(curr.getText());
-		 	else
-				System.out.println("Came to null");
+		  	char currChar = prefix.charAt(i);
+		     if (curr.getChild(currChar) != null) {
+                curr = curr.getChild(currChar);
+                System.out.println(curr.getText());
+            }
+		 	else {
+                System.out.println("Came to null");
+		 	    return new LinkedList<String>();
+            }
 		 }
 
 		 Queue<TrieNode> q = new LinkedList<TrieNode>();
 		 List<String> result = new ArrayList<String>();
 		 q.add(curr);
-		 while (!q.isEmpty()) {
+		 while (!q.isEmpty() && result.size() < numCompletions) {
 		 	TrieNode nodeInLL = q.remove();
+			 System.out.println(nodeInLL.getText() + " got in the system. " + nodeInLL.endsWord());
 		 	if (nodeInLL.endsWord()) {
+                System.out.println(nodeInLL.getText() + " in the game");
 				result.add(nodeInLL.getText());
 			}
 
 		 	for (Character currNodeChar : nodeInLL.getValidNextCharacters()) {
-		 		if (numCompletions > 0) {
-		 			TrieNode theNode = curr.getChild(currNodeChar);
-		 			if (theNode != null) {
-		 				q.add(theNode);
-		 				System.out.println(theNode.getText() + " added");
-		 			}
-		 			else if (nodeInLL.getValidNextCharacters().contains("")) {
-		 				q.add(new TrieNode());
-		 			}
-		 		}
-		 		numCompletions--;
+		 	    TrieNode theNode = nodeInLL.getChild(currNodeChar);
+				q.add(theNode);
+				System.out.println(theNode.getText() + " added to the queue, waiting sir, yes sir");
 		 	}
+             System.out.println();
 		 }
 
     	 // 2. Once the stem is found, perform a breadth first search to generate completions
@@ -203,7 +199,4 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
  			printNode(next);
  		}
  	}
- 	
-
-	
 }
