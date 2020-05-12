@@ -40,35 +40,34 @@ public class DocumentBenchmarking {
 		// and prints out timing results as described in the assignment 
 		// instructions and following the pseudocode below.
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
-				numToCheck += increment)
-		{
+				numToCheck += increment) {
 			// numToCheck holds the number of characters that you should read from the 
 			// file to create both a BasicDocument and an EfficientDocument.  
-			System.out.print(numToCheck+"\t");
+			System.out.print(numToCheck + "\t");
 
 			String textToRead = getStringFromFile(textfile, numToCheck);
 			double bsTimeAvg = 0;
-			for (int i = 0; i < trials; i++){
+			for (int i = 0; i < trials; i++) {
 
 				long bsTimeStart = nanoTime();
-				BasicDocument bsDc =  new BasicDocument(textToRead);
+				BasicDocument bsDc = new BasicDocument(textToRead);
 				double basicFlesh = bsDc.getFleschScore();
 				long bsTimeStop = nanoTime();
-				bsTimeAvg += (bsTimeStop-bsTimeStart)/1000000000.0;
+				bsTimeAvg += (bsTimeStop - bsTimeStart) / 1000000000.0;
 			}
-			System.out.print((bsTimeAvg/trials) + "\t");
+			System.out.print((bsTimeAvg / trials) + "\t");
 			double efTimeAvg = 0;
 
-			for (int i = 0; i < trials; i++){
+			for (int i = 0; i < trials; i++) {
 
 				long efTimeStart = nanoTime();
 				EfficientDocument efDc = new EfficientDocument(textToRead);
 				double efficientFlesh = efDc.getFleschScore();
 				long efTimeStop = nanoTime();
-				efTimeAvg +=( efTimeStop-efTimeStart)/1000000000.0;
+				efTimeAvg += (efTimeStop - efTimeStart) / 1000000000.0;
 			}
-
-			System.out.print((efTimeAvg/trials) + "\n");
+			System.out.print((efTimeAvg / trials) + "\n");
+		}
 			/* Each time through this loop you should:
 			 * 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
 			 * 2. Read numToCheck characters from the file into a String
@@ -83,10 +82,8 @@ public class DocumentBenchmarking {
 			 *     b. Calls fleshScore on this document
 			 * 6. Print out the time it took to complete the loop in step 5 
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
-			 */  
-			 
-		}
-	
+			 */
+
 	}
 	
 	/** Get a specified number of characters from a text file

@@ -9,7 +9,6 @@ public class MarkovTextGeneratorGrader {
 
     public static void main(String[] args) {
         try {
-
             MarkovTextGenerator gen = new MarkovTextGeneratorLoL(new Random());
             
             int incorrect = 0;
@@ -18,7 +17,6 @@ public class MarkovTextGeneratorGrader {
 
             feedback += "\n** Test 1: Generating text before training...";
             try {
-
                 String s = gen.generateText(20);
                 feedback += "No error thrown. ";
             } catch (Exception e) {

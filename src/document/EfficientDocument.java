@@ -45,11 +45,13 @@ public class EfficientDocument extends Document {
      */
 	private void processText()
 	{
-		// Call getTokens on the text to preserve separate strings that are 
+		// Call getTokens on the text to preserve separate strings that are
 		// either words or sentence-ending punctuation.  Ignore everything
 		// That is not a word or a sentence-ending puctuation.
 		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
 		// OF THIS METHOD.
+		// TODO: Finish this method.  Remember the countSyllables method from
+		// Document.  That will come in handy here.  isWord defined above will also help.
 		int words = 0;
 		int sentences = 0;
 		int syllables = 0;
@@ -66,8 +68,6 @@ public class EfficientDocument extends Document {
 			else
 				sentences++;
 		}
-		// TODO: Finish this method.  Remember the countSyllables method from 
-		// Document.  That will come in handy here.  isWord defined above will also help.
 		this.numSentences = sentences;
 		this.numSyllables = syllables;
 		this.numWords = words;
@@ -90,7 +90,6 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSentences() {
 		//TODO: write this method.  Hint: It's simple
-
 		return numSentences;
 	}
 
@@ -112,8 +111,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumWords() {
 		//TODO: write this method.  Hint: It's simple
-
-		return numWords;
+	    return numWords;
 	}
 
 
@@ -135,7 +133,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSyllables() {
         //TODO: write this method.  Hint: It's simple
-		return numSyllables;
+        return numSyllables;
 	}
 	
 	// Can be used for testing
@@ -158,6 +156,7 @@ public class EfficientDocument extends Document {
 		testCase(new EfficientDocument("Sentences?!"), 3, 1, 1);
 		testCase(new EfficientDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
 		         32, 15, 1);
+		
 	}
 	
 

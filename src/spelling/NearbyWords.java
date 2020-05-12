@@ -3,7 +3,6 @@
  */
 package spelling;
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -119,18 +118,14 @@ public class NearbyWords implements SpellingSuggest {
 	 */
 	@Override
 	public List<String> suggestions(String word, int numSuggestions) {
-
 		// initial variables
 		List<String> queue = new LinkedList<String>();     // String to explore
 		HashSet<String> visited = new HashSet<String>();   // to avoid exploring the same  
 														   // string multiple times
 		List<String> retList = new LinkedList<String>();   // words to return
-		 
-		
 		// insert first node
 		queue.add(word);
 		visited.add(word);
-					
 		// TODO: Implement the remainder of this method, see assignment for algorithm
 		while(!queue.isEmpty() && retList.size() != numSuggestions&&queue.size()<THRESHOLD) {
 			String curr = queue.get(0);
@@ -145,14 +140,12 @@ public class NearbyWords implements SpellingSuggest {
 					}
 				}
 			}
-
 		}
 		return retList;
-
 	}	
 
    public static void main(String[] args) {
-	   /* basic testing code to get started*/
+	   /* basic testing code to get started
 	   String word = "i";
 	   // Pass NearbyWords any Dictionary implementation you prefer
 	   Dictionary d = new DictionaryHashSet();
@@ -161,11 +154,12 @@ public class NearbyWords implements SpellingSuggest {
 	   List<String> l = w.distanceOne(word, true);
 	   System.out.println("One away word Strings for for \""+word+"\" are:");
 	   System.out.println(l+"\n");
+
 	   word = "tailo";
 	   List<String> suggest = w.suggestions(word, 10);
 	   System.out.println("Spelling Suggestions for \""+word+"\" are:");
 	   System.out.println(suggest);
-
+	   */
    }
 
 }

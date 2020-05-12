@@ -34,9 +34,9 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumWords()
 	{
-		//TODO: Implement this method in week 2 according to the comments above.
+		//TODO: Implement this method in week 2 according to the comments above.  
 		// See the Module 2 support videos if you need help.
-	    List<String> answer = getTokens("[a-zA-Z]+");
+		List<String> answer = getTokens("[a-zA-Z]+");
 		return answer.size();
 	}
 	
@@ -57,9 +57,8 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 2 support videos 
         // if you need help.
-
 		List<String> answer = getTokens("[^?!.]+");
-        return answer.size();
+		return answer.size();
 	}
 	
 	/**
@@ -90,7 +89,7 @@ public class BasicDocument extends Document
 			int currSyllables = countSyllables(word);
 			ans+=currSyllables;
 		}
-        return ans;
+		return ans;
 	}
 	
 	

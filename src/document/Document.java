@@ -67,7 +67,7 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	 	String vowels = "aeiouy";
+		String vowels = "aeiouy";
 		boolean newSylabble = true;
 		int answer = 0;
 		char[] cArray = word.toCharArray();
@@ -84,7 +84,7 @@ public abstract class Document {
 				newSylabble = true;
 			}
 		}
-	    return answer;
+		return answer;
 	}
 	
 	/** A method for testing
@@ -153,8 +153,7 @@ public abstract class Document {
 		double numSentences = getNumSentences();
 		double numSyllables = getNumSyllables();
 
-	    return 206.835-1.015*(numWords/numSentences)-84.6*(numSyllables/numWords);
-
+		return 206.835-1.015*(numWords/numSentences)-84.6*(numSyllables/numWords);
 	}
 	
 	

@@ -26,7 +26,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * Appends an element to the end of the list
 	 * @param element The element to add
 	 */
-	public boolean add(E element)
+	public boolean add(E element ) 
 	{
 		// TODO: Implement this method
 		if (element != null){
@@ -53,7 +53,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) 
 	{
-
 		// TODO: Implement this method.
 		if (index >= size || index < 0)
 			throw new IndexOutOfBoundsException();
@@ -73,8 +72,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param The index where the element should be added
 	 * @param element The element to add
 	 */
-	public void add(int index, E element)
+	public void add(int index, E element ) 
 	{
+		// TODO: Implement this method
 		if(element != null) {
 			if ((index >= size && size != 0) || index < 0){
 				throw new IndexOutOfBoundsException();
@@ -110,7 +110,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		else {
 			throw new NullPointerException();
 		}
-		// TODO: Implement this method
 	}
 
 
@@ -118,7 +117,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public int size() 
 	{
 		// TODO: Implement this method
-
 		return size;
 	}
 
@@ -186,6 +184,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public E set(int index, E element) 
 	{
+		// TODO: Implement this method
 		if (element != null){
 			if (index>=size || index<0) {
 				throw new IndexOutOfBoundsException();
@@ -207,7 +206,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		else {
 			throw new NullPointerException();
 		}
-		// TODO: Implement this method
 	}   
 }
 
@@ -227,8 +225,4 @@ class LLNode<E>
 		this.next = null;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("LLNode{next=%s, data=%s}",next.data==null?"null":next.data,data);
-	}
 }

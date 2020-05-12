@@ -20,6 +20,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+
+
+
 public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
@@ -130,6 +133,7 @@ public class MainApp extends Application {
     	
     }
     
+ 
     public void showEditDistanceDialog(String selectedText) {
     	try {
     		// Load the fxml file and create a new stage for the popup
@@ -221,7 +225,8 @@ public class MainApp extends Application {
     	alert.getDialogPane().getStyleClass().add("myDialog");
     	alert.showAndWait();
     }
-
+    
+    
     public void showMarkovDialog(textgen.MarkovTextGenerator mtg) {
     	try {
     		// Load the fxml file and create a new stage for the popup

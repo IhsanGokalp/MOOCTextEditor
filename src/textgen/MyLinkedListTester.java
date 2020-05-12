@@ -128,6 +128,7 @@ public class MyLinkedListTester {
 		assertEquals("Add: check \"C\" is correct ", "C", shortList.get(2));
 		assertEquals("Add: check size of \"shortlist\" is correct ", 3, shortList.size);
 		assertEquals("Add: check size of \"shortlist\" is correct ", "B", shortList.get(1));
+		
 	}
 
 	
@@ -135,13 +136,13 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
+		// TODO: implement this test
 		assertEquals("Add: check size of \"longerlist\" is correct ", 10,longerList.size());
 		longerList.add(3);
 		assertEquals("Add: check size of \"longerlist\" is correct ", 11,longerList.size());
 		longerList.remove(10);
 		longerList.remove(9);
 		assertEquals("Add: check size of \"longerlist\" is correct ", 9,longerList.size());
-		// TODO: implement this test
 	}
 
 	
@@ -153,6 +154,7 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
+        // TODO: implement this test
 		shortList.add("D");
 		shortList.add(2,"C");
 		assertEquals("Add: size is correct ",4,shortList.size);
@@ -160,31 +162,30 @@ public class MyLinkedListTester {
 		assertEquals("Add: Position of \"C\" is correct ","C",shortList.get(2));
 		assertEquals("Add: next of \"C\" is correct ","D",shortList.get(3));
 
-        shortList.add(0,"Z");
-        assertEquals("Add: size is correct ",5,shortList.size);
-        assertEquals("Add: Placement is correct ","Z",shortList.get(0));
-        assertEquals("Add: Placement is correct ","A",shortList.get(1));
+		shortList.add(0,"Z");
+		assertEquals("Add: size is correct ",5,shortList.size);
+		assertEquals("Add: Placement is correct ","Z",shortList.get(0));
+		assertEquals("Add: Placement is correct ","A",shortList.get(1));
 
-        try {
-            shortList.add(-1,"Y");
-            fail("Check out of bounds");
-        }
-        catch (IndexOutOfBoundsException e) {
-        }
-        try {
-            shortList.add(5,"E");
-            fail("Check out of bounds");
-        }
-        catch (IndexOutOfBoundsException e) {
-        }
-        // TODO: implement this test
-		
+		try {
+			shortList.add(-1,"Y");
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		}
+		try {
+			shortList.add(5,"E");
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		}
 	}
 	
 	/** Test setting an element in the list */
 	@Test
 	public void testSet()
 	{
+	    // TODO: implement this test
 		shortList.add("D");
 		shortList.set(2,"C");
 		assertEquals("Add: check \"C\" is correct ", "C", shortList.get(2));
@@ -215,8 +216,6 @@ public class MyLinkedListTester {
 		}
 		catch (NullPointerException e) {
 		}
-		// TODO: implement this test
-	    
 	}
 	
 	
